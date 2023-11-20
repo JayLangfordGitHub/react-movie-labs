@@ -6,10 +6,9 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 
-const navigate = useNavigate();
-
 const Header = (props ) => {
   const title = props.title
+  const navigate = useNavigate();
   return (
     <Paper 
       component="div" 
