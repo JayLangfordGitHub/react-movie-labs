@@ -5,9 +5,7 @@ import { getUpcomingMovies } from "../api/tmdb-api";
 const UpcomingMoviesPage = () => {
   const [movies, setMovies] = useState([]);
 
-  // This function will handle adding movies to favorites, similar to your HomePage.
   const addToFavorites = (movieId) => {
-    // Implementation will be similar to the one in HomePage.
   };
 
   useEffect(() => {
