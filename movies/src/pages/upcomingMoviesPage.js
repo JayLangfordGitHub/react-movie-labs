@@ -1,28 +1,32 @@
-import React, { useState, useEffect } from "react";
-import PageTemplate from '../components/templateMovieListPage'
-import { getUpcomingMovies } from "../api/tmdb-api";
-import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
+import React, { useState, useEffect } from 'react';
+import PageTemplate from '../components/templateMovieListPage';
+import { getUpcomingMovies } from '../api/tmdb-api';
+import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist'
 
 const UpcomingMoviesPage = () => {
-    const [movies, setMovies] = useState([]);
+const [movies, setMovies] = useState([]);
+  const playlist = movies.filter(m => m.playlist)
+  localStorage.setItem('playlist', JSON.stringify(playlist))
 
-  const addToFavorites = (movieId) => {
+  const addToPlaylist = (movieId) => {
+    const updatedMovies = movies.map((m) =>
+      m.id === movieId ? { ...m, playlist: true } : m
+    );
+    setMovies(updatedMovies);
   };
 
   useEffect(() => {
-    // Fetch upcoming movies from the TMDB API.
-    getUpcomingMovies().then(upcomingMovies => {
-      setMovies(upcomingMovies);
+    getUpcomingMovies().then((movies) => {
+      setMovies(movies);
     });
   }, []);
 
   return (
     <PageTemplate
-      title='Upcoming Movies'
+      title="Upcoming Movies"
       movies={movies}
-      selectFavorite={addToFavorites}
       action={(movie) => {
-        return <AddToFavoritesIcon movie={movie} />
+        return <AddToPlaylistIcon movie={movie} />
       }}
     />
   );
